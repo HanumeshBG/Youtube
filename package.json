@@ -1,0 +1,24 @@
+{
+  "name": "youtube",
+  "version": "1.0.0",
+  "description": "Youtube clone project.",
+  "keywords": [
+    "youtube",
+    "jest",
+    "react",
+    "parcel"
+  ],
+  "license": "ISC",
+  "author": "Hanumesh B G",
+  "type": "commonjs",
+  "scripts": {
+    "test": "jest",
+    "start": "parcel index.html",
+    "build": "parcel build index.html"
+  },
+  "dependencies": {
+    "parcel": "^2.15.4",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
+  }
+}
