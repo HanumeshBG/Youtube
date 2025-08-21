@@ -8,3 +8,7 @@ export const SEARCH_ICON = "https://icon-library.com/images/search-engine-icon/s
 
 const YOUTUBE_API_KEY = "AIzaSyCQ7nFgyKAhHvEPh40GxjLbQhboWx8rbPA"
 export const YOUTUBE_VIDEO_API = "https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=50&regionCode=IN&key=" + YOUTUBE_API_KEY
+
+export const YOUTUBE_SEARCHSUGGESTION_API = "http://suggestqueries.google.com/complete/search?client=firefox&ds=yt&q="
+
+export const LIVE_CHAT_COUNT = 100;
