@@ -20,6 +20,7 @@
     "@reduxjs/toolkit": "^2.8.2",
     "@tailwindcss/postcss": "^4.1.11",
     "firebase": "^12.1.0",
+    "lucide-react": "^0.541.0",
     "parcel": "^2.15.4",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",

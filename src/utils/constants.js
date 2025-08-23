@@ -7,8 +7,10 @@ export const PROFILE_ICON = "https://cdn-icons-png.flaticon.com/128/64/64572.png
 export const SEARCH_ICON = "https://icon-library.com/images/search-engine-icon/search-engine-icon-24.jpg";
 
 const YOUTUBE_API_KEY = "AIzaSyCQ7nFgyKAhHvEPh40GxjLbQhboWx8rbPA"
-export const YOUTUBE_VIDEO_API = "https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=50&regionCode=IN&key=" + YOUTUBE_API_KEY
+export const YOUTUBE_VIDEO_API = "https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=20&regionCode=IN&key=" + YOUTUBE_API_KEY
 
 export const YOUTUBE_SEARCHSUGGESTION_API = "http://suggestqueries.google.com/complete/search?client=firefox&ds=yt&q="
 
 export const LIVE_CHAT_COUNT = 100;
+
+export const SEARCHSUGGESTION_VIDEORESULTS_API = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=50&key=${YOUTUBE_API_KEY}&q=`

@@ -28,7 +28,7 @@ const App = () => {
 
     return (
         <Provider store={store}>
-            <div>
+            <div className="h-screen overflow-y-auto">
                 <Header />
                 <RouterProvider router={appRouter}/>
             </div>

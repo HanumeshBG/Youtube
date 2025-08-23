@@ -3,12 +3,15 @@ import { MENU_ICON, YOUTUBE_LOGO, PROFILE_ICON, SEARCH_ICON, YOUTUBE_SEARCHSUGGE
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleMenu } from '../utils/appSlice';
 import { cacheSearchResult } from '../utils/searchSlice'
+import { Search } from "lucide-react";
 
 const Header = () => {
     const dispatch = useDispatch();
     const [searchText, setSearchText] = useState("");
     const [suggestions, setSuggestions] = useState([])
     const [showSuggestions, setShowSuggestions] = useState(false)
+    const [videos, setVideos] = useState([])
+
     const menuClickHandler = () => {
         dispatch(toggleMenu());
     }
@@ -65,7 +68,9 @@ const Header = () => {
                     onFocus={() => setShowSuggestions(true)}
                     onBlur={() => setShowSuggestions(false)}
                 />
-                <button className='border bg-gray-200 rounded-r-full cursor-pointer p-2'>SEARCH</button>
+                <button className='border bg-gray-200 rounded-r-full cursor-pointer p-2'>
+                    <Search className='h-5 w-5' />
+                </button>
             </div>
             { showSuggestions &&
                 <div className='fixed bg-white shadow-lg p-2 mt-2 rounded-lg w-[20rem]'>
