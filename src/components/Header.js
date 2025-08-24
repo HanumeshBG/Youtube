@@ -1,47 +1,48 @@
-import React, { useEffect, useState } from 'react'
+import React, { use, useEffect, useState } from 'react'
 import { MENU_ICON, YOUTUBE_LOGO, PROFILE_ICON, SEARCH_ICON, YOUTUBE_SEARCHSUGGESTION_API } from '../utils/constants'
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleMenu } from '../utils/appSlice';
 import { cacheSearchResult } from '../utils/searchSlice'
 import { Search } from "lucide-react";
+import useFetch from '../hooks/useFetch';
 
 const Header = () => {
     const dispatch = useDispatch();
     const [searchText, setSearchText] = useState("");
     const [suggestions, setSuggestions] = useState([])
     const [showSuggestions, setShowSuggestions] = useState(false)
-    const [videos, setVideos] = useState([])
+    const [url, setUrl] = useState(YOUTUBE_SEARCHSUGGESTION_API + searchText)
 
     const menuClickHandler = () => {
         dispatch(toggleMenu());
     }
     const cachedResult = useSelector(store => store.search)
 
+    const {data, loading, error} = useFetch(url)
+    useEffect(() => {
+        if(!data) return;
+        setSuggestions(data[1])
+        dispatch(cacheSearchResult({
+            [searchText]: data[1]
+        }))
+    }, [data])
+
     // Function to handle search
     useEffect(() => {
-
         // Fetch search suggestions when searchText changes using the debounce technique
         const timer = setTimeout(() => {
             if(cachedResult[searchText]){
                 setSuggestions(cachedResult[searchText]);
             } else {
-                getSerachTextSuggestions()
+                setUrl(YOUTUBE_SEARCHSUGGESTION_API + searchText)
             }
         }, 200)
 
         return () => clearTimeout(timer);  // Cleanup the timer on component unmount or when searchText changes
     }, [searchText]);
 
-    const getSerachTextSuggestions = async() => {
-        if(searchText.length === 0) return;
-        const data = await fetch(YOUTUBE_SEARCHSUGGESTION_API + searchText);
-        const json = await data.json();
-        console.log(json)
-        setSuggestions(json[1]);
-        dispatch(cacheSearchResult({
-            [searchText]: json[1]
-        }))
-    }
+    if (error) return <p className="text-center text-red-500">{error}</p>;
+
   return (
     <div className='grid grid-flow-col p-2 m-1 shadow-md'>
         <div className='col-span-1 flex gap-1'>

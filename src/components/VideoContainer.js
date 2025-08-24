@@ -2,19 +2,25 @@ import React, { useEffect, useState, useRef, use, useCallback } from 'react'
 import { YOUTUBE_VIDEO_API } from '../utils/constants';
 import VideoCard from './VideoCard';
 import { Link } from 'react-router-dom';
+import useFetch from '../hooks/useFetch';
 
 const VideoContainer = () => {
   const [videos, setVideos] = useState([]);
-  const [loading, setLoading] = useState(false);
   const [nextPageToken, setNextPageToken] = useState("");
+  const [url, setUrl] = useState(`${YOUTUBE_VIDEO_API}&pageToken=${nextPageToken}`);
 
   const containerRef = useRef(null)
   const timer = useRef(null);
 
+  // Fetch videos using custom hook
+  const {data, loading, error} = useFetch(url)
+
+  // Update videos and nextPageToken when data changes
   useEffect(() => {
-    // Fetch videos from YouTube API
-    getVideos()
-  }, [])
+    if(!data) return;
+    setVideos((prev) => [...prev, ...data.items]); // append new videos to existing ones
+    setNextPageToken(data.nextPageToken || ''); // update the next token  
+  }, [data])
 
   // handle scroll event for infinite scrolling
   const handleScroll = useCallback(() => {
@@ -25,8 +31,8 @@ const VideoContainer = () => {
 
       if(container.scrollTop + container.clientHeight >= container.scrollHeight - 50) {
         // User has scrolled to the bottom
-        if(!loading) {
-          getVideos(nextPageToken);
+        if(!loading && nextPageToken) {
+          setUrl(`${YOUTUBE_VIDEO_API}&pageToken=${nextPageToken}`);
         }
       }
     }, 200);
@@ -42,18 +48,10 @@ const VideoContainer = () => {
       container.removeEventListener('scroll', handleScroll);
       timer.current && clearTimeout(timer.current);
     }
-
   }, [handleScroll])
 
-  const getVideos = async ( token = "") => {
-    setLoading(true);
-    const data = await fetch(`${YOUTUBE_VIDEO_API}&pageToken=${token}`)
-    const json = await data.json();
-    setVideos((prev) => [...prev, ...json.items]); // append new videos to existing ones
-    setNextPageToken(json.nextPageToken); // update the next token
-    setLoading(false);
-  }
-
+  if (error) return <p className="text-center text-red-500">{error}</p>;
+  if (videos.length === 0 && loading) return <p>Loading...</p>;
   if (videos.length == 0) return null;
 
   return (
