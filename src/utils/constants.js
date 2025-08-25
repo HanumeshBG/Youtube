@@ -14,3 +14,5 @@ export const YOUTUBE_SEARCHSUGGESTION_API = "http://suggestqueries.google.com/co
 export const LIVE_CHAT_COUNT = 100;
 
 export const SEARCHSUGGESTION_VIDEORESULTS_API = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=50&key=${YOUTUBE_API_KEY}&q=`
+
+export const COMMENTS_API = `https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&maxResults=20&key=${YOUTUBE_API_KEY}&videoId=`

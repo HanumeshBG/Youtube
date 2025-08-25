@@ -4,6 +4,7 @@ import { closeMenu } from '../utils/appSlice';
 import { useSearchParams } from 'react-router-dom';
 import CommentsContainer from './CommentsContainer';
 import LiveChat from './LiveChat';
+import LiveCommentsContainer from './LiveCommentsContainer';
 
 const WatchPage = () => {
     const dispatch = useDispatch();
@@ -29,7 +30,8 @@ const WatchPage = () => {
                 <LiveChat />
             </div>
         </div>
-        <CommentsContainer />
+        {/* <CommentsContainer /> */}
+        <LiveCommentsContainer videoId={searchParams.get("v")}/>
     </div>
   )
 }
